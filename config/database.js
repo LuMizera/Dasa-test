@@ -5,7 +5,7 @@ require('dotenv').config({ path: dotEnvPath });
 
 module.exports = {
   development: {
-    'url': process.env.DATABASE_URL,
-    'dialect': 'postgres',
+    url: process.env.DATABASE_URL,
+    dialect: 'postgres',
   },
 };

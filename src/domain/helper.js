@@ -1,4 +1,3 @@
-
 const { complement, compose, isNil, pickBy } = require('ramda');
 
 const notNull = compose(complement(isNil));

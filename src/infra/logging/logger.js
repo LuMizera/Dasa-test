@@ -9,10 +9,11 @@ module.exports = ({ config }) => {
   return new winston.createLogger({
     transports: [
       new winston.transports.Console(),
-      new winston.transports.File(Object.assign(
-        config.logging, {
+      new winston.transports.File(
+        Object.assign(config.logging, {
           filename: `logs/${config.env}.log`,
-        })),
+        })
+      ),
     ],
   });
 };

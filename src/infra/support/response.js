@@ -10,19 +10,11 @@ module.exports = ({ config }) => {
   };
 
   const Success = (data) => {
-    return assoc(
-      'data',
-      data,
-      defaultResponse(true)
-    );
+    return assoc('data', data, defaultResponse(true));
   };
 
   const Fail = (data) => {
-    return assoc(
-      'error',
-      data,
-      defaultResponse(false)
-    );
+    return assoc('error', data, defaultResponse(false));
   };
 
   return {

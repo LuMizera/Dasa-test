@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const schema = new Schema({
   name: {
@@ -9,10 +9,9 @@ const schema = new Schema({
   },
   status: {
     type: String,
-    enum: ['active','inactive'],
+    enum: ['active', 'inactive'],
     default: 'active',
   },
 });
-
 
 module.exports = model('laboratories', schema);
