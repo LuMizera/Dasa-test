@@ -10,6 +10,8 @@ module.exports = ({ laboratoryRepository }) => {
       .then((foundLaboratory) => {
         if (!foundLaboratory) {
           throw new Error('Laboratory not found');
+        } else if (foundLaboratory.status !== 'active') {
+          throw new Error('Cannot edit an inactive Laboratory');
         }
 
         const updatedLaboratory = _.merge(

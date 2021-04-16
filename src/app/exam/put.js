@@ -8,6 +8,8 @@ module.exports = ({ examRepository, laboratoryRepository }) => {
       .then((foundExam) => {
         if (!foundExam) {
           throw new Error('Exam not found');
+        } else if (foundExam.status !== 'active') {
+          throw new Error('Cannot edit an inactive Exam');
         }
 
         let foundLaboratories = [];
@@ -36,7 +38,7 @@ module.exports = ({ examRepository, laboratoryRepository }) => {
       .then(({ foundExam, resolvedLaboratories }) => {
         const updatedExam = _.mergeWith(
           foundExam,
-          _.omit(body, ['id', '_id', 'laboratories']),
+          _.omit(body, ['id', '_id', 'laboratories', 'status']),
           { laboratories: resolvedLaboratories },
           (objValue, srcValue) => {
             if (_.isArray(objValue)) {
@@ -67,7 +69,7 @@ module.exports = ({ examRepository, laboratoryRepository }) => {
 
           return update({
             id: item.id,
-            body: _.omit(item, ['id', '_id']),
+            body: _.omit(item, ['id', '_id', 'status']),
           });
         })
       )
