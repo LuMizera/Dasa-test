@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 const queryToMongo = require('query-to-mongo');
 
 module.exports = ({ laboratoryRepository }) => {
@@ -9,7 +11,9 @@ module.exports = ({ laboratoryRepository }) => {
     }
 
     return Promise.resolve()
-      .then(() => laboratoryRepository.getAll(criteria, options))
+      .then(() =>
+        laboratoryRepository.paginate(criteria, _.omit(options, ['fields']))
+      )
       .catch((error) => {
         throw new Error(error);
       });

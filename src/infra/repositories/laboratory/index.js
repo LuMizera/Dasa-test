@@ -1,7 +1,7 @@
 const { toEntity } = require('./transform');
 
 module.exports = ({ model }) => {
-  const getAll = (criteria, options) =>
+  const paginate = (criteria, options) =>
     model.paginate(criteria, options).then((result) => ({
       ...result,
       docs: result.docs.map((data) => toEntity(data)),
@@ -28,7 +28,7 @@ module.exports = ({ model }) => {
     model.findByIdAndUpdate(id, data).then((result) => toEntity(result));
 
   return {
-    getAll,
+    paginate,
     create,
     findById,
     findByIdAndUpdate,
