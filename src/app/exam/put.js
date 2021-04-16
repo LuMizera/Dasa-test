@@ -36,7 +36,7 @@ module.exports = ({ examRepository, laboratoryRepository }) => {
       .then(({ foundExam, resolvedLaboratories }) => {
         const updatedExam = _.mergeWith(
           foundExam,
-          _.omit(body, ['id', '_id', 'status', 'laboratories']),
+          _.omit(body, ['id', '_id', 'laboratories']),
           { laboratories: resolvedLaboratories },
           (objValue, srcValue) => {
             if (_.isArray(objValue)) {
@@ -67,7 +67,7 @@ module.exports = ({ examRepository, laboratoryRepository }) => {
 
           return update({
             id: item.id,
-            body: _.omit(item, ['id', '_id', 'status']),
+            body: _.omit(item, ['id', '_id']),
           });
         })
       )
