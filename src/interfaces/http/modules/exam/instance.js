@@ -3,12 +3,12 @@ const { get, post, put, remove } = require('../../../../app/exam');
 
 module.exports = () => {
   const {
-    repository: { examRepository },
+    repository: { examRepository, laboratoryRepository },
   } = container.cradle;
 
   const getUseCase = get({ examRepository });
   const postUseCase = post({ examRepository });
-  const putUseCase = put({ examRepository });
+  const putUseCase = put({ examRepository, laboratoryRepository });
   const removeUseCase = remove({ examRepository });
 
   return {

@@ -12,4 +12,7 @@ const Laboratory = t.struct({
   }),
 });
 
-module.exports = compose(cleanData, Laboratory);
+module.exports = {
+  Laboratory: compose(cleanData, Laboratory),
+  structure: Laboratory,
+};

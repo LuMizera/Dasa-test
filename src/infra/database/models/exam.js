@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
+const mongooseAutoPopulate = require('mongoose-autopopulate');
 
 const schema = new Schema({
   name: {
@@ -9,6 +10,13 @@ const schema = new Schema({
     type: String,
     enum: ['analysis', 'clinic', 'image'],
   },
+  laboratories: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'laboratories',
+      autopopulate: true,
+    },
+  ],
   status: {
     type: String,
     enum: ['active', 'inactive'],
@@ -17,5 +25,6 @@ const schema = new Schema({
 });
 
 schema.plugin(mongoosePaginate);
+schema.plugin(mongooseAutoPopulate);
 
 module.exports = model('exams', schema);

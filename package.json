@@ -23,6 +23,7 @@
     "http-status": "^1.5.0",
     "lodash": "^4.17.21",
     "mongoose": "^5.12.3",
+    "mongoose-autopopulate": "^0.13.0",
     "mongoose-paginate-v2": "^1.3.17",
     "morgan": "^1.10.0",
     "query-to-mongo": "^0.10.1",

@@ -1,7 +1,7 @@
 const { Exam } = require('../../domain/exam');
 const _ = require('lodash');
 
-module.exports = ({ examRepository }) => {
+module.exports = ({ examRepository, laboratoryRepository }) => {
   const update = ({ id, body }) => {
     return Promise.resolve()
       .then(() => examRepository.findById(id))
@@ -10,16 +10,45 @@ module.exports = ({ examRepository }) => {
           throw new Error('Exam not found');
         }
 
-        const updatedExam = _.merge(
+        let foundLaboratories = [];
+
+        if (body.laboratories) {
+          foundLaboratories = body.laboratories.map((laboratoryId) =>
+            laboratoryRepository.findById(laboratoryId)
+          );
+        }
+
+        return { foundExam, foundLaboratories };
+      })
+      .then(async ({ foundExam, foundLaboratories }) => {
+        const resolvedLaboratories = await Promise.all(foundLaboratories);
+
+        for (let laboratory of resolvedLaboratories) {
+          if (laboratory.status !== 'active') {
+            throw new Error(
+              `Cannot associate 'inactive' laboratory '${laboratory.id}' to an exam.`
+            );
+          }
+        }
+
+        return { foundExam, resolvedLaboratories };
+      })
+      .then(({ foundExam, resolvedLaboratories }) => {
+        const updatedExam = _.mergeWith(
           foundExam,
-          _.omit(body, ['id', '_id', 'status'])
+          _.omit(body, ['id', '_id', 'status', 'laboratories']),
+          { laboratories: resolvedLaboratories },
+          (objValue, srcValue) => {
+            if (_.isArray(objValue)) {
+              return srcValue;
+            }
+          }
         );
 
         const exam = Exam(updatedExam);
-
-        return exam;
+        return { exam, resolvedLaboratories };
       })
-      .then(async (exam) => {
+      .then(async ({ exam }) => {
         await examRepository.findByIdAndUpdate(id, exam);
         return exam;
       })

@@ -4,11 +4,13 @@ module.exports = ({ examRepository }) => {
   const create = ({ body }) => {
     return Promise.resolve()
       .then(() => {
-        if (!body.status) {
-          body.status = 'active';
-        }
+        const mergedBody = {
+          status: 'active',
+          laboratories: [],
+          ...body,
+        };
 
-        const exam = Exam(body);
+        const exam = Exam(mergedBody);
 
         return examRepository.create(exam);
       })
@@ -21,11 +23,13 @@ module.exports = ({ examRepository }) => {
     return Promise.resolve()
       .then(() => {
         const examEntities = body.map((item) => {
-          if (!item.status) {
-            item.status = 'active';
-          }
+          const mergedBody = {
+            status: 'active',
+            laboratories: [],
+            ...item,
+          };
 
-          const exam = Exam(item);
+          const exam = Exam(mergedBody);
           return exam;
         });
 

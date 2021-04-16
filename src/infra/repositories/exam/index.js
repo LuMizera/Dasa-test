@@ -1,4 +1,5 @@
 const { toEntity } = require('./transform');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 module.exports = ({ model }) => {
   const paginate = (criteria, options) =>
@@ -24,8 +25,16 @@ module.exports = ({ model }) => {
       return toEntity(result);
     });
 
-  const findByIdAndUpdate = (id, data) =>
-    model.findByIdAndUpdate(id, data).then((result) => toEntity(result));
+  const findByIdAndUpdate = (id, data) => {
+    let fixedLaboratories = [];
+    if (data.laboratories) {
+      fixedLaboratories = data.laboratories.map((item) => ObjectId(item.id));
+    }
+
+    return model
+      .findByIdAndUpdate(id, { ...data, laboratories: fixedLaboratories })
+      .then((result) => toEntity(result));
+  };
 
   return {
     paginate,
