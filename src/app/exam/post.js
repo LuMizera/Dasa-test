@@ -17,7 +17,27 @@ module.exports = ({ examRepository }) => {
       });
   };
 
+  const createMany = ({ body }) => {
+    return Promise.resolve()
+      .then(() => {
+        const examEntities = body.map((item) => {
+          if (!item.status) {
+            item.status = 'active';
+          }
+
+          const exam = Exam(item);
+          return exam;
+        });
+
+        return examRepository.insertMany(examEntities);
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  };
+
   return {
     create,
+    createMany,
   };
 };

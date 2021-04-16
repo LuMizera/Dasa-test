@@ -28,7 +28,28 @@ module.exports = ({ examRepository }) => {
       });
   };
 
+  const updateMany = ({ body }) => {
+    return Promise.resolve()
+      .then(() =>
+        body.map((item) => {
+          if (!item.id) {
+            throw new Error(`Every exam needs to have its 'id'`);
+          }
+
+          return update({
+            id: item.id,
+            body: _.omit(item, ['id', '_id', 'status']),
+          });
+        })
+      )
+      .then((updatePromises) => Promise.all(updatePromises))
+      .catch((error) => {
+        throw new Error(error);
+      });
+  };
+
   return {
     update,
+    updateMany,
   };
 };
