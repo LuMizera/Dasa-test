@@ -1,7 +1,7 @@
-var queryToMongo = require('query-to-mongo');
+const queryToMongo = require('query-to-mongo');
 
 module.exports = ({ laboratoryRepository }) => {
-  const all = (req) => {
+  const paginate = (req) => {
     const { criteria, options } = queryToMongo(req.query);
 
     if (criteria && !criteria.status) {
@@ -31,7 +31,7 @@ module.exports = ({ laboratoryRepository }) => {
   };
 
   return {
-    all,
+    paginate,
     byId,
   };
 };

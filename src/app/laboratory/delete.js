@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 module.exports = ({ laboratoryRepository }) => {
-  const inactiveById = ({ id }) => {
+  const deactivateById = ({ id }) => {
     return Promise.resolve()
       .then(() => laboratoryRepository.findById(id))
       .then((foundLaboratory) => {
@@ -18,12 +18,12 @@ module.exports = ({ laboratoryRepository }) => {
       .then((inactiveLaboratory) =>
         laboratoryRepository.findByIdAndUpdate(id, inactiveLaboratory)
       )
-      .then(() => ({ message: 'Laboratory inactivated' }))
+      .then(() => ({ message: 'Laboratory deactivated' }))
       .catch((error) => {
         throw new Error(error);
       });
   };
   return {
-    inactiveById,
+    deactivateById,
   };
 };

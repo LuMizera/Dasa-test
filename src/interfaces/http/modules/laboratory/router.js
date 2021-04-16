@@ -11,9 +11,9 @@ module.exports = ({
 }) => {
   const router = Router();
 
-  router.get('/', (req, res) => {
+  router.get('/paginate', (req, res) => {
     getUseCase
-      .all(req, res)
+      .paginate(req, res)
       .then((data) => {
         res.status(Status.OK).json(Success(data));
       })
@@ -23,7 +23,7 @@ module.exports = ({
       });
   });
 
-  router.get('/:id', (req, res) => {
+  router.get('/byId/:id', (req, res) => {
     getUseCase
       .byId({ id: req.params.id })
       .then((data) => {
@@ -35,7 +35,7 @@ module.exports = ({
       });
   });
 
-  router.post('/', (req, res) => {
+  router.post('/create', (req, res) => {
     postUseCase
       .create({ body: req.body })
       .then((data) => {
@@ -47,7 +47,7 @@ module.exports = ({
       });
   });
 
-  router.put('/:id', (req, res) => {
+  router.put('/update/:id', (req, res) => {
     putUseCase
       .update({ id: req.params.id, body: req.body })
       .then((data) => {
@@ -59,9 +59,9 @@ module.exports = ({
       });
   });
 
-  router.delete('/:id', (req, res) => {
+  router.delete('/deactivate/:id', (req, res) => {
     removeUseCase
-      .inactiveById({ id: req.params.id })
+      .deactivateById({ id: req.params.id })
       .then((data) => {
         res.status(Status.OK).json(Success(data));
       })

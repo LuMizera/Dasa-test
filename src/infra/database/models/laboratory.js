@@ -5,8 +5,9 @@ const schema = new Schema({
   name: {
     type: String,
   },
-  address: {
+  type: {
     type: String,
+    enum: ['analysis', 'clinic', 'image'],
   },
   status: {
     type: String,
@@ -17,4 +18,4 @@ const schema = new Schema({
 
 schema.plugin(mongoosePaginate);
 
-module.exports = model('laboratories', schema);
+module.exports = model('exams', schema);
