@@ -1,11 +1,9 @@
 const { assoc } = require('ramda');
 
-module.exports = ({ config }) => {
+module.exports = () => {
   const defaultResponse = (success = true) => {
     return {
       success,
-      version: config.version,
-      date: new Date(),
     };
   };
 

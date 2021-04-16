@@ -37,7 +37,7 @@ module.exports = ({ config, logger }) => {
   apiRouter.use('/', controller('index'));
   apiRouter.use('/laboratories', controller('laboratory').router);
 
-  router.use(`/api/${config.version}`, apiRouter);
+  router.use(`/api/`, apiRouter);
 
   router.use(partialRight(errorHandler, [logger, config]));
 
