@@ -28,4 +28,4 @@ const schema = new Schema({
 schema.plugin(mongoosePaginate);
 schema.plugin(mongooseAutoPopulate);
 
-module.exports = model('exams', schema);
+module.exports = model('exams', schema, 'Exam');

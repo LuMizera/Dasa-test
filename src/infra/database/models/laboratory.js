@@ -18,4 +18,4 @@ const schema = new Schema({
 
 schema.plugin(mongoosePaginate);
 
-module.exports = model('laboratories', schema);
+module.exports = model('laboratories', schema, 'Laboratory');
