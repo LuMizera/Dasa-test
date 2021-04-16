@@ -5,6 +5,7 @@ const mongooseAutoPopulate = require('mongoose-autopopulate');
 const schema = new Schema({
   name: {
     type: String,
+    unique: true,
   },
   type: {
     type: String,

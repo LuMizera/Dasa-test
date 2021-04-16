@@ -4,6 +4,7 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const schema = new Schema({
   name: {
     type: String,
+    unique: true,
   },
   address: {
     type: String,
