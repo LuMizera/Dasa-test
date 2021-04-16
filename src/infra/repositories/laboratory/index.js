@@ -10,6 +10,11 @@ module.exports = ({ model }) => {
   const create = (...args) =>
     model.create(...args).then((result) => toEntity(result));
 
+  const insertMany = (...args) =>
+    model
+      .insertMany(...args)
+      .then((result) => result.map((data) => toEntity(data)));
+
   const findById = (id) =>
     model.findById(id).then((result) => {
       if (!result) {
@@ -27,5 +32,6 @@ module.exports = ({ model }) => {
     create,
     findById,
     findByIdAndUpdate,
+    insertMany,
   };
 };

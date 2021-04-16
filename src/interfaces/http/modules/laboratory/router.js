@@ -47,6 +47,18 @@ module.exports = ({
       });
   });
 
+  router.post('/createMany', (req, res) => {
+    postUseCase
+      .createMany({ body: req.body })
+      .then((data) => {
+        res.status(Status.OK).json(Success(data));
+      })
+      .catch((error) => {
+        logger.error(error);
+        res.status(Status.BAD_REQUEST).json(Fail(error.message));
+      });
+  });
+
   router.put('/update/:id', (req, res) => {
     putUseCase
       .update({ id: req.params.id, body: req.body })
@@ -59,9 +71,33 @@ module.exports = ({
       });
   });
 
+  router.put('/updateMany', (req, res) => {
+    putUseCase
+      .updateMany({ body: req.body })
+      .then((data) => {
+        res.status(Status.OK).json(Success(data));
+      })
+      .catch((error) => {
+        logger.error(error);
+        res.status(Status.BAD_REQUEST).json(Fail(error.message));
+      });
+  });
+
   router.delete('/deactivate/:id', (req, res) => {
     removeUseCase
       .deactivateById({ id: req.params.id })
+      .then((data) => {
+        res.status(Status.OK).json(Success(data));
+      })
+      .catch((error) => {
+        logger.error(error);
+        res.status(Status.BAD_REQUEST).json(Fail(error.message));
+      });
+  });
+
+  router.delete('/deactivateMany', (req, res) => {
+    removeUseCase
+      .deactivateMany({ body: req.body })
       .then((data) => {
         res.status(Status.OK).json(Success(data));
       })

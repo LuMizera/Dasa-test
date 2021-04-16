@@ -23,7 +23,25 @@ module.exports = ({ laboratoryRepository }) => {
         throw new Error(error);
       });
   };
+
+  const deactivateMany = ({ body }) => {
+    return Promise.resolve()
+      .then(() =>
+        body.map((item) => {
+          return deactivateById({
+            id: item,
+          });
+        })
+      )
+      .then((unsolvedPromises) => Promise.all(unsolvedPromises))
+      .then(() => ({ message: `${body.length} Laboratories deactivated` }))
+      .catch((error) => {
+        throw new Error(error);
+      });
+  };
+
   return {
     deactivateById,
+    deactivateMany,
   };
 };
