@@ -3,8 +3,6 @@ const _ = require('lodash');
 
 module.exports = ({ laboratoryRepository }) => {
   const update = ({ id, body }) => {
-    console.log({ id, body });
-
     return Promise.resolve()
       .then(() => laboratoryRepository.findById(id))
       .then((foundLaboratory) => {
