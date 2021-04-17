@@ -15,4 +15,4 @@ RUN yarn install
 
 EXPOSE 7777
 
-CMD [ "npm", "run", "start:dev"]
+CMD [ "npm", "run", "start:deployed"]
