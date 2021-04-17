@@ -1,26 +1,25 @@
-require('dotenv').config();
-
-const fs = require('fs');
 const path = require('path');
+const dotEnvPath = path.resolve(`.env.${process.env.NODE_ENV}`);
 
-function loadDbConfig() {
-  if (fs.existsSync(path.join(__dirname, './database.js'))) {
-    return require('./database')[ENV];
-  }
+require('dotenv').config({
+  path: dotEnvPath,
+});
 
-  throw new Error('Database is configuration is required');
-}
+console.log('process.env.NODE_ENV :>> ', process.env.NODE_ENV);
 
 const ENV = process.env.NODE_ENV || 'development';
 
 const envConfig = require(path.join(__dirname, 'environments', ENV));
-const dbConfig = loadDbConfig();
 const config = Object.assign(
   {
     env: ENV,
-    db: dbConfig,
+    db: {
+      url: process.env.DATABASE_URL,
+    },
   },
   envConfig
 );
+
+console.log('config.db :>> ', config.db);
 
 module.exports = config;

@@ -12,3 +12,4 @@ redis-data
 
 package-lock.json
 yarn.lock
+mongo-volume
