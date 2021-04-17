@@ -6,13 +6,22 @@ module.exports = ({ examRepository }) => {
   const paginate = (req) => {
     const { criteria, options } = queryToMongo(req.query);
 
-    if (criteria && !criteria.status) {
-      criteria.status = 'active';
+    if (criteria) {
+      if (!criteria.status) {
+        criteria.status = 'active';
+      }
+
+      if (criteria.page) {
+        options.page = criteria.page;
+      }
     }
 
     return Promise.resolve()
       .then(() =>
-        examRepository.paginate(criteria, _.omit(options, ['fields']))
+        examRepository.paginate(
+          _.omit(criteria, ['page']),
+          _.omit(options, ['fields'])
+        )
       )
       .catch((error) => {
         throw new Error(error);
