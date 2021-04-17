@@ -12,7 +12,7 @@ module.exports = () => {
       version: '1.0.0',
       description: 'Available REST Endpoints of Node DDD RESTful API',
     },
-    host: `${process.env.API_SWAGGER}:${process.env.PORT}/api`,
+    host: `${process.env.API_SWAGGER}/api`,
     basePath: '/',
   };
 

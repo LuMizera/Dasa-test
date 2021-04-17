@@ -1,17 +1,15 @@
 {
   "name": "dasa",
   "version": "1.0.0",
-  "description": "",
+  "description": "Test for backend position on Dasa",
   "main": "index.js",
   "scripts": {
-    "start:dev": "cross-env NODE_ENV=development NODE_PATH=. nodemon index.js --experimental-modules",
-    "start:deployed": "cross-env NODE_ENV=production NODE_PATH=. node cluster.js --experimental-modules",
+    "start:dev": "cross-env NODE_PATH=. nodemon index.js --experimental-modules",
     "docker:script": "docker-compose run --rm web",
-    "start": "docker-compose run --rm web",
     "lint": "eslint --ext .js ./",
     "lint:fix": "eslint --ext .js ./ --fix"
   },
-  "author": "",
+  "author": "Lucas Mila",
   "license": "ISC",
   "dependencies": {
     "awilix": "^4.3.3",
